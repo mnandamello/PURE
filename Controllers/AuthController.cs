@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using PURE.Data;
 using PURE.DTOs;
 using PURE.Models;
-using System.Net.Http.Headers;
 
 namespace PURE.Controllers
 {
@@ -22,26 +21,32 @@ namespace PURE.Controllers
             return View();
         }
 
-        public IActionResult LogarUsuario(LoginDTO request) 
+        public IActionResult LogarUsuario(LoginDTO request)
         {
 
-            //todo: session
+            var session = HttpContext.Session.GetInt32("_Id");
+            var find = _dataContext.Usuarios.Find(session);
+            if (find != null)
+            {
+                return RedirectToAction("PerfilPage", "Usuario");
+            }
 
             var getUser = _dataContext.Usuarios.FirstOrDefault(x => x.UserEmail == request.UserEmail);
             if (getUser == null)
             {
                 return NotFound();
             }
-            if(!BCrypt.Net.BCrypt.Verify(request.PasswordHash, getUser.PasswordHash))
+            if (!BCrypt.Net.BCrypt.Verify(request.PasswordHash, getUser.PasswordHash))
             {
                 return NotFound();
             }
-            if(getUser.isActive == false)
+            if (getUser.isActive == false)
             {
                 getUser.isActive = true;
             }
 
-            //todo: session
+            HttpContext.Session.SetInt32("_Id", getUser.Id);
+            HttpContext.Session.SetString("_email", getUser.UserEmail);
 
             return RedirectToAction("Index", "Home");
 
@@ -55,7 +60,7 @@ namespace PURE.Controllers
         public IActionResult CadastroUsuario(CadastroDTO request)
         {
             var getUser = _dataContext.Usuarios.FirstOrDefault(x => x.UserEmail == request.UserEmail);
-            if (getUser == null)
+            if (getUser != null)
             {
                 return NotFound(request);
             }

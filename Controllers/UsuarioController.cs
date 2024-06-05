@@ -14,9 +14,9 @@ namespace PURE.Controllers
             _dataContext = dataContext;
         }
 
-        public IActionResult PerfilPage(int id)
+        public IActionResult PerfilPage()
         {
-            //todo: sessison
+            var id = HttpContext.Session.GetInt32("_Id");
 
             var getUser = _dataContext.Usuarios.Find(id);
             ViewBag.Usuario = getUser;
@@ -28,7 +28,7 @@ namespace PURE.Controllers
         }
 
         //nn implementado no front nessa sprint, em avaliação para ver se faz sentido ter
-        public IActionResult EditarPerfil(int id, string newPassword, CadastroDTO request) 
+        public IActionResult EditarPerfil(int id, string newPassword, CadastroDTO request)
         {
             var getUser = _dataContext.Usuarios.Find(id);
             if (BCrypt.Net.BCrypt.Verify(request.PasswordHash, getUser.PasswordHash))
@@ -47,12 +47,16 @@ namespace PURE.Controllers
 
         [HttpPost]
         [Route("Usuario/DesativarPerfil")]
-        public IActionResult DesativarPerfil(int id)
+        public IActionResult DesativarPerfil()
         {
-            //todo: session
+            var id = HttpContext.Session.GetInt32("_Id");
+            if (id == null)
+            {
+                return RedirectToAction("LoginPage", "Auth");
+            }
 
             var getUser = _dataContext.Usuarios.Find(id);
-            if(getUser != null)
+            if (getUser != null)
             {
                 getUser.isActive = false;
                 _dataContext.Update(getUser);

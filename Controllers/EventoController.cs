@@ -18,10 +18,10 @@ namespace PURE.Controllers
         {
             return View();
         }
-        
+
         public IActionResult CadastrarEvento(CadastroEventoDTO request)
         {
-            //todo: session
+            var id = HttpContext.Session.GetInt32("_Id");
 
             var getUser = _dataContext.Usuarios.Find(id);
 
@@ -48,7 +48,7 @@ namespace PURE.Controllers
 
         public IActionResult MeusEventosPage()
         {
-            //todo: session
+            var id = HttpContext.Session.GetInt32("_Id");
 
             var getEventos = _dataContext.Eventos.Where(i => i.UserId == id).ToList();
 
@@ -87,6 +87,6 @@ namespace PURE.Controllers
             return RedirectToAction("MeusEventosPage");
         }
 
-        
+
     }
 }

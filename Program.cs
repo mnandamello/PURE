@@ -11,6 +11,15 @@ builder.Services.AddDbContext<DataContext>(o =>
     o.UseOracle(builder.Configuration.GetConnectionString("OracleConnection"));
 });
 
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.Cookie.Name = "PURE-Session";
+    options.IdleTimeout = TimeSpan.FromMinutes(6);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -27,6 +36,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
