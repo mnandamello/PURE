@@ -25,11 +25,6 @@ namespace PURE.Controllers
 
             var getUser = _dataContext.Usuarios.Find(id);
 
-            if (getUser == null)
-            {
-                return NotFound("Usuário não encontrado.");
-            }
-
             Evento newEvento = new Evento
             {
                 EventName = request.EventName,
@@ -37,7 +32,8 @@ namespace PURE.Controllers
                 EventLocal = request.EventLocal,
                 EventDate = request.EventDate,
                 InitialEventTime = request.InitialEventTime,
-                EventPoint = request.EventPoint
+                EventPoint = request.EventPoint,
+                UserId = getUser.Id
             };
 
             _dataContext.Eventos.Add(newEvento);
