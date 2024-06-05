@@ -1,0 +1,60 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model PURE.Models.Evento
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Editar Evento</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="EditarEvento" asp-controller="Evento" method="post">
+                        <div class="form-group">
+                            <input type="hidden" asp-for="EventName" class="form-control" value="@ViewBag.eventos.Id" name="id" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="EventName">Nome do Evento</label>
+                            <input type="text" class="form-control" asp-for="EventName" value="@ViewBag.eventos.EventName" placeholder="Digite o nome do evento" name="EventName" />
+                            <span asp-validation-for="EventName" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Description">Descrição</label>
+                            <input type="text" class="form-control" asp-for="Description" value="@ViewBag.eventos.Description" placeholder="Digite a descrição do evento" name="Description" />
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="EventLocal">Local do Evento</label>
+                            <input type="text" class="form-control" asp-for="EventLocal" value="@ViewBag.eventos.EventLocal" placeholder="Digite o local do evento" name="EventLocal" />
+                            <span asp-validation-for="EventLocal" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="EventDate">Data do Evento</label>
+                            <input type="number" step="0.01" class="form-control" asp-for="EventDate" value="@ViewBag.eventos.EventDate" placeholder="Digite a data do evento" name="EventDate" />
+                            <span asp-validation-for="EventDate" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="InitialEventTime">Hora inicial do Evento</label>
+                            <input type="number" class="form-control" asp-for="InitialEventTime" value="@ViewBag.eventos.InitialEventTime" placeholder="Digite a hora de inicio" name="InitialEventTime" />
+                            <span asp-validation-for="InitialEventTime" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="EventPoint">Pontos do Evento</label>
+                            <input type="number" class="form-control" asp-for="EventPoint" value="@ViewBag.eventos.EventPoint" placeholder="Digite quantos pontos esse evento vale" name="EventPoint" />
+                            <span asp-validation-for="EventPoint" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-success btn-block">Salvar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

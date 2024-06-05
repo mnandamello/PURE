@@ -1,0 +1,45 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model PURE.DTOs.CadastroEventoDTO
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Cadastrar Novo Evento</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-controller="Evento" asp-action="CadastrarEvento" method="post">
+                        <div class="form-group">
+                            <label for="EventName">Nome do Evento</label>
+                            <input type="text" class="form-control" asp-for="EventName" placeholder="Digite o nome do evento" name="EventName" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Description">Descrição</label>
+                            <input type="text" class="form-control" asp-for="Description" placeholder="Digite a descrição do evento" name="Description" />
+                        </div>
+                        <div class="form-group">
+                            <label for="EventLocal">Local do Evento</label>
+                            <input type="text" class="form-control" asp-for="EventLocal" placeholder="Digite o local do evento" name="EventLocal" />
+                        </div>
+                        <div class="form-group">
+                            <label for="EventDate">Data do Evento (colocar sem /)</label>
+                            <input type="text" step="0.01" class="form-control" asp-for="EventDate" placeholder="Digite a data do evento" name="EventDate" />
+                        </div>
+                        <div class="form-group">
+                            <label for="InitialEventTime">Hora inicial do Evento (colocar sem : , apenas o valor inicial)</label>
+                            <input type="text" class="form-control" asp-for="InitialEventTime" placeholder="Digite a hora de inicio" name="InitialEventTime" />
+                        </div>
+                        <div class="form-group">
+                            <label for="EventPoint">Pontos do Evento</label>
+                            <input type="number" class="form-control" asp-for="EventPoint" placeholder="Digite quantos pontos esse evento vale" name="EventPoint" />
+                        </div>
+                        <button type="submit" class="btn btn-success btn-block">Cadastrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
